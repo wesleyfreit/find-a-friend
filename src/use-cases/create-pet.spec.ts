@@ -2,7 +2,6 @@ import { InMemoryMediasRepository } from '@/repositories/in-memory/in-memory-med
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository';
 import { InMemoryRequirementsRepository } from '@/repositories/in-memory/in-memory-requirements-repository';
 import { faker } from '@faker-js/faker';
-import { PetAge, PetAmbient, PetEnergy, PetIndependency, PetSize } from 'prisma/client';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePetUseCase } from './create-pet';
 
@@ -22,14 +21,14 @@ describe('Create Pet Use Case', () => {
   it('should be able to create a new pet', async () => {
     const { pet } = await sut.execute({
       about: faker.lorem.paragraph(),
-      age: PetAge.PUPPY,
-      ambient: PetAmbient.INDOOR,
+      age: 'PUPPY',
+      ambient: 'INDOOR',
       city: faker.location.city(),
-      energy: PetEnergy.MEDIUM,
-      independency: PetIndependency.LOW,
+      energy: 'MEDIUM',
+      independency: 'LOW',
       name: faker.person.firstName(),
       orgId: faker.string.uuid(),
-      size: PetSize.MEDIUM,
+      size: 'MEDIUM',
       uf: faker.location.state(),
       medias: ['https://example.com/media1.jpg', 'https://example.com/media2.jpg'],
       requirements: ['food', 'water'],

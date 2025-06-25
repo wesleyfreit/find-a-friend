@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Prisma, type Pet } from 'prisma/client';
-import { PetsRepository } from '../pets-repository';
+import { PetParams, PetsRepository } from '../pets-repository';
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = [];
@@ -37,12 +37,37 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet;
   }
 
-  async findByCityAndUF(city: string, uf: string): Promise<Pet[]> {
+  async findManyByCityAndUF(
+    city: string,
+    uf: string,
+    params?: PetParams,
+  ): Promise<Pet[]> {
     const pets = this.items.filter(
       (pet) =>
         pet.city.toLocaleLowerCase() === city.toLocaleLowerCase() &&
         pet.uf.toLocaleLowerCase() === uf.toLocaleLowerCase(),
     );
+
+    if (Object.keys(params ?? {}).length > 0) {
+      return pets.filter((pet) => {
+        if (params?.size && pet.size !== params.size) {
+          return false;
+        }
+        if (params?.age && pet.age !== params.age) {
+          return false;
+        }
+        if (params?.energy && pet.energy !== params.energy) {
+          return false;
+        }
+        if (params?.ambient && pet.ambient !== params.ambient) {
+          return false;
+        }
+        if (params?.independency && pet.independency !== params.independency) {
+          return false;
+        }
+        return true;
+      });
+    }
 
     return pets;
   }
