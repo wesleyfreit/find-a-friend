@@ -1,4 +1,5 @@
 import { InMemoryMediasRepository } from '@/repositories/in-memory/in-memory-medias-repository';
+import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository';
 import { InMemoryRequirementsRepository } from '@/repositories/in-memory/in-memory-requirements-repository';
 import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -8,25 +9,43 @@ import { FetchPetsInTheCityUseCase } from './fetch-pets-in-the-city';
 let petsRepository: InMemoryPetsRepository;
 let mediasRepository: InMemoryMediasRepository;
 let requirementsRepository: InMemoryRequirementsRepository;
+let organizationsRepository: InMemoryOrganizationsRepository;
 let sut: FetchPetsInTheCityUseCase;
 
 describe('Fetch Pets In The City Use Case', () => {
   beforeEach(async () => {
     mediasRepository = new InMemoryMediasRepository();
     requirementsRepository = new InMemoryRequirementsRepository();
-    petsRepository = new InMemoryPetsRepository(requirementsRepository, mediasRepository);
+    organizationsRepository = new InMemoryOrganizationsRepository();
+    petsRepository = new InMemoryPetsRepository(
+      organizationsRepository,
+      requirementsRepository,
+      mediasRepository,
+    );
     sut = new FetchPetsInTheCityUseCase(petsRepository);
+
+    await organizationsRepository.create({
+      id: 'org-1',
+      principal: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      phone: faker.phone.number(),
+      city: 'Cajazeiras',
+      state: 'PB',
+      address: faker.location.streetAddress(),
+      cep: '58900-000',
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    });
 
     await petsRepository.create({
       name: 'Bobby',
       about: faker.lorem.paragraph(),
       age: 'PUPPY',
       ambient: 'INDOOR',
-      city: 'Cajazeiras',
       energy: 'HIGH',
-      orgId: faker.string.uuid(),
+      orgId: 'org-1',
       size: 'SMALL',
-      uf: 'PB',
       independency: 'LOW',
     });
 
@@ -35,11 +54,9 @@ describe('Fetch Pets In The City Use Case', () => {
       about: faker.lorem.paragraph(),
       age: 'PUPPY',
       ambient: 'BOTH',
-      city: 'Cajazeiras',
       energy: 'HIGH',
-      orgId: faker.string.uuid(),
+      orgId: 'org-1',
       size: 'MEDIUM',
-      uf: 'PB',
       independency: 'HIGH',
     });
 
@@ -48,11 +65,9 @@ describe('Fetch Pets In The City Use Case', () => {
       about: faker.lorem.paragraph(),
       age: 'YOUNG',
       ambient: 'BOTH',
-      city: 'Cajazeiras',
       energy: 'LOW',
-      orgId: faker.string.uuid(),
+      orgId: 'org-1',
       size: 'GIANT',
-      uf: 'PB',
       independency: 'LOW',
     });
 
@@ -61,11 +76,9 @@ describe('Fetch Pets In The City Use Case', () => {
       about: faker.lorem.paragraph(),
       age: 'SENIOR',
       ambient: 'BOTH',
-      city: 'Bom Jesus',
       energy: 'LOW',
       orgId: faker.string.uuid(),
       size: 'EXTRA_LARGE',
-      uf: 'PB',
       independency: 'LOW',
     });
   });

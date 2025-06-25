@@ -1,4 +1,5 @@
 import { InMemoryMediasRepository } from '@/repositories/in-memory/in-memory-medias-repository';
+import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository';
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository';
 import { InMemoryRequirementsRepository } from '@/repositories/in-memory/in-memory-requirements-repository';
 import { faker } from '@faker-js/faker';
@@ -9,13 +10,19 @@ import { GetPetDetailsUseCase } from './get-pet-details';
 let petsRepository: InMemoryPetsRepository;
 let mediasRepository: InMemoryMediasRepository;
 let requirementsRepository: InMemoryRequirementsRepository;
+let organizationsRepository: InMemoryOrganizationsRepository;
 let sut: GetPetDetailsUseCase;
 
 describe('Get Pet Details Use Case', () => {
   beforeEach(() => {
     mediasRepository = new InMemoryMediasRepository();
     requirementsRepository = new InMemoryRequirementsRepository();
-    petsRepository = new InMemoryPetsRepository(requirementsRepository, mediasRepository);
+    organizationsRepository = new InMemoryOrganizationsRepository();
+    petsRepository = new InMemoryPetsRepository(
+      organizationsRepository,
+      requirementsRepository,
+      mediasRepository,
+    );
     sut = new GetPetDetailsUseCase(petsRepository);
   });
 
@@ -28,11 +35,9 @@ describe('Get Pet Details Use Case', () => {
       about: faker.lorem.paragraph(),
       age: 'PUPPY',
       ambient: 'INDOOR',
-      city: 'Cajazeiras',
       energy: 'HIGH',
       orgId: faker.string.uuid(),
       size: 'SMALL',
-      uf: 'PB',
       independency: 'LOW',
     });
 
@@ -41,7 +46,7 @@ describe('Get Pet Details Use Case', () => {
     });
 
     expect(pet.id).toEqual(petId);
-    expect(pet.city).toEqual('Cajazeiras');
+    expect(pet.name).toEqual('Bobby');
     expect(pet.energy).toEqual('HIGH');
   });
 

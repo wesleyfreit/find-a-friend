@@ -9,6 +9,8 @@ interface RegisterOrganizationUseCaseRequest {
   phone: string;
   password: string;
   address: string;
+  city: string;
+  state: string;
   cep: string;
   latitude: number;
   longitude: number;
@@ -28,6 +30,8 @@ export class RegisterOrganizationUseCase {
     password,
     address,
     cep,
+    city,
+    state,
     latitude,
     longitude,
   }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
@@ -46,6 +50,8 @@ export class RegisterOrganizationUseCase {
       phone,
       password: password_hash,
       address,
+      city,
+      state,
       cep,
       latitude,
       longitude,

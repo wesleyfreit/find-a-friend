@@ -53,6 +53,8 @@ model Organization {
   principal String
   email     String    @unique
   cep       String
+  city      String
+  state     String
   address   String
   latitude  Decimal
   longitude Decimal
@@ -70,8 +72,6 @@ model Pet {
   id        String    @id @default(uuid())
   name      String
   about     String?
-  uf        String
-  city      String
   orgId     String    @map("org_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")

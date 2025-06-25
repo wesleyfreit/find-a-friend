@@ -13,6 +13,8 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
       phone: data.phone,
       password: data.password,
       address: data.address,
+      city: data.city,
+      state: data.state,
       cep: data.cep,
       latitude: new Prisma.Decimal(data.latitude.toString()),
       longitude: new Prisma.Decimal(data.longitude.toString()),

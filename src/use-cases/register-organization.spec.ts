@@ -21,6 +21,8 @@ describe('Register Organization Use Case', () => {
       phone: faker.phone.number(),
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
+      state: faker.location.state(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
       password: faker.internet.password(),
@@ -38,6 +40,8 @@ describe('Register Organization Use Case', () => {
       phone: faker.phone.number(),
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
+      state: faker.location.state(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
       password,
@@ -48,7 +52,7 @@ describe('Register Organization Use Case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true);
   });
 
-  it('should not be able to registerorganization a organization with an already registerorganizationed email', async () => {
+  it('should not be able to register an with an already registered email', async () => {
     const email = faker.internet.email();
 
     await sut.execute({
@@ -57,6 +61,8 @@ describe('Register Organization Use Case', () => {
       phone: faker.phone.number(),
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
+      state: faker.location.state(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
       password: faker.internet.password(),
@@ -69,6 +75,8 @@ describe('Register Organization Use Case', () => {
         phone: faker.phone.number(),
         address: faker.location.streetAddress(),
         cep: faker.location.zipCode(),
+        city: faker.location.city(),
+        state: faker.location.state(),
         latitude: faker.location.latitude(),
         longitude: faker.location.longitude(),
         password: faker.internet.password(),

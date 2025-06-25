@@ -18,8 +18,6 @@ interface CreatePetUseCaseRequest {
   ambient: PetAmbient;
   energy: PetEnergy;
   size: PetSize;
-  uf: string;
-  city: string;
   independency: PetIndependency;
   orgId: string;
   medias?: string[];
@@ -44,8 +42,6 @@ export class CreatePetUseCase {
     ambient,
     energy,
     size,
-    uf,
-    city,
     independency,
     orgId,
     medias,
@@ -58,8 +54,6 @@ export class CreatePetUseCase {
       ambient,
       energy,
       size,
-      uf,
-      city,
       independency,
       orgId,
     });

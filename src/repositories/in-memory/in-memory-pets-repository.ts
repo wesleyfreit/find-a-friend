@@ -2,12 +2,14 @@ import { randomUUID } from 'node:crypto';
 import { Prisma, type Pet } from 'prisma/client';
 import { FilteredPet, FullPet, PetParams, PetsRepository } from '../pets-repository';
 import { InMemoryMediasRepository } from './in-memory-medias-repository';
+import { InMemoryOrganizationsRepository } from './in-memory-organizations-repository';
 import { InMemoryRequirementsRepository } from './in-memory-requirements-repository';
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = [];
 
   constructor(
+    private organizationsRepository: InMemoryOrganizationsRepository,
     private requirementsRepository: InMemoryRequirementsRepository,
     private mediasRepository: InMemoryMediasRepository,
   ) {}
@@ -19,11 +21,9 @@ export class InMemoryPetsRepository implements PetsRepository {
       about: data.about ?? null,
       age: data.age,
       ambient: data.ambient,
-      city: data.city,
       energy: data.energy,
       orgId: data.orgId,
       size: data.size,
-      uf: data.uf,
       independency: data.independency,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -55,14 +55,18 @@ export class InMemoryPetsRepository implements PetsRepository {
     uf: string,
     params?: PetParams,
   ): Promise<FilteredPet[]> {
-    const pets = this.items.filter(
-      (pet) =>
-        pet.city.toLocaleLowerCase() === city.toLocaleLowerCase() &&
-        pet.uf.toLocaleLowerCase() === uf.toLocaleLowerCase(),
-    );
+    const organizations = this.organizationsRepository.items.filter((organization) => {
+      return (
+        organization.city.toLowerCase() === city.toLowerCase() &&
+        organization.state.toLowerCase() === uf.toLowerCase()
+      );
+    });
+
+    const pets = this.items.filter((pet) => {
+      return organizations.some((organization) => organization.id === pet.orgId);
+    });
 
     if (Object.keys(params ?? {}).length > 0) {
-      // Filter by all params in the params object and return only pets that match all criteria and with medias and only with id and name
       return pets
         .filter((pet) => {
           if (params?.age && pet.age !== params.age) return false;

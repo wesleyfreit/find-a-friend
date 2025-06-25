@@ -21,6 +21,8 @@ describe('Get Organization Profile Use Case', () => {
       phone: faker.phone.number(),
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
+      state: faker.location.state(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
       password: await hash(faker.internet.password(), 6),
