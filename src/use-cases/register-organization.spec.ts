@@ -3,15 +3,15 @@ import { compare } from 'bcryptjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryOrganizationsRepository } from '../repositories/in-memory/in-memory-organizations-repository';
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error';
-import { RegisterUseCase } from './register';
+import { RegisterOrganizationUseCase } from './register-organization';
 
 let organizationsRepository: InMemoryOrganizationsRepository;
-let sut: RegisterUseCase;
+let sut: RegisterOrganizationUseCase;
 
-describe('Register use case', () => {
+describe('Register Organization Use Case', () => {
   beforeEach(() => {
     organizationsRepository = new InMemoryOrganizationsRepository();
-    sut = new RegisterUseCase(organizationsRepository);
+    sut = new RegisterOrganizationUseCase(organizationsRepository);
   });
 
   it('should be able to register a new organization', async () => {
@@ -48,7 +48,7 @@ describe('Register use case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true);
   });
 
-  it('should not be able to register a organization with an already registered email', async () => {
+  it('should not be able to registerorganization a organization with an already registerorganizationed email', async () => {
     const email = faker.internet.email();
 
     await sut.execute({

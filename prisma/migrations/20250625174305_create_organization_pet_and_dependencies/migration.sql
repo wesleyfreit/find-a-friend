@@ -14,7 +14,7 @@ CREATE TYPE "PetIndependency" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
 CREATE TYPE "PetAmbient" AS ENUM ('INDOOR', 'OUTDOOR', 'BOTH');
 
 -- CreateTable
-CREATE TABLE "organzations" (
+CREATE TABLE "organizations" (
     "id" TEXT NOT NULL,
     "principal" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -22,12 +22,12 @@ CREATE TABLE "organzations" (
     "address" TEXT NOT NULL,
     "latitude" DECIMAL(65,30) NOT NULL,
     "longitude" DECIMAL(65,30) NOT NULL,
-    "phone" TEXT,
+    "phone" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
 
-    CONSTRAINT "organzations_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "organizations_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -60,26 +60,26 @@ CREATE TABLE "medias" (
 );
 
 -- CreateTable
-CREATE TABLE "requeriments" (
+CREATE TABLE "requirements" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "petId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "requeriments_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "requirements_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "organzations_email_key" ON "organzations"("email");
+CREATE UNIQUE INDEX "organizations_email_key" ON "organizations"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "organzations_phone_key" ON "organzations"("phone");
+CREATE UNIQUE INDEX "organizations_phone_key" ON "organizations"("phone");
 
 -- AddForeignKey
-ALTER TABLE "pets" ADD CONSTRAINT "pets_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "organzations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "pets" ADD CONSTRAINT "pets_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "medias" ADD CONSTRAINT "medias_pet_id_fkey" FOREIGN KEY ("pet_id") REFERENCES "pets"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "requeriments" ADD CONSTRAINT "requeriments_petId_fkey" FOREIGN KEY ("petId") REFERENCES "pets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "requirements" ADD CONSTRAINT "requirements_petId_fkey" FOREIGN KEY ("petId") REFERENCES "pets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

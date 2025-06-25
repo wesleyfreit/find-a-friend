@@ -8,7 +8,7 @@ import { GetOrganizationProfileUseCase } from './get-organization-profile';
 let organizationsRepository: InMemoryOrganizationsRepository;
 let sut: GetOrganizationProfileUseCase;
 
-describe('Get organization profile use case', () => {
+describe('Get Organization Profile Use Case', () => {
   beforeEach(() => {
     organizationsRepository = new InMemoryOrganizationsRepository();
     sut = new GetOrganizationProfileUseCase(organizationsRepository);

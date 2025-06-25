@@ -63,7 +63,7 @@ model Organization {
 
   pet Pet[]
 
-  @@map("organzations")
+  @@map("organizations")
 }
 
 model Pet {
@@ -83,7 +83,7 @@ model Pet {
   ambient      PetAmbient
 
   org          Organization  @relation(fields: [orgId], references: [id])
-  requeriments Requeriment[]
+  requirements Requirement[]
   medias       Media[]
 
   @@map("pets")
@@ -100,7 +100,7 @@ model Media {
   @@map("medias")
 }
 
-model Requeriment {
+model Requirement {
   id        String   @id @default(uuid())
   name      String
   petId     String
@@ -108,5 +108,5 @@ model Requeriment {
 
   pet Pet @relation(fields: [petId], references: [id])
 
-  @@map("requeriments")
+  @@map("requirements")
 }

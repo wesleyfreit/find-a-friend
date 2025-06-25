@@ -3,7 +3,7 @@ import { type Organization } from 'prisma/client';
 import { OrganizationsRepository } from '../repositories/organizations-repository';
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error';
 
-interface RegisterUseCaseRequest {
+interface RegisterOrganizationUseCaseRequest {
   principal: string;
   email: string;
   phone: string;
@@ -14,11 +14,11 @@ interface RegisterUseCaseRequest {
   longitude: number;
 }
 
-interface RegisterUseCaseResponse {
+interface RegisterOrganizationUseCaseResponse {
   organization: Organization;
 }
 
-export class RegisterUseCase {
+export class RegisterOrganizationUseCase {
   constructor(private organizationsRepository: OrganizationsRepository) {}
 
   async execute({
@@ -30,7 +30,7 @@ export class RegisterUseCase {
     cep,
     latitude,
     longitude,
-  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
     const password_hash = await bcrypt.hash(password, 6);
 
     const organizationWithSameEmail =

@@ -5,7 +5,7 @@ import { OrganizationsRepository } from '../organizations-repository';
 export class InMemoryOrganizationsRepository implements OrganizationsRepository {
   public items: Organization[] = [];
 
-  async create(data: Prisma.OrganizationCreateInput) {
+  async create(data: Prisma.OrganizationCreateInput): Promise<Organization> {
     const organization: Organization = {
       id: data.id ?? randomUUID(),
       email: data.email,
@@ -25,7 +25,7 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
     return organization;
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<Organization | null> {
     const organization = this.items.find(
       (organization) =>
         organization.email.toLocaleLowerCase() === email.toLocaleLowerCase(),
@@ -38,7 +38,7 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
     return organization;
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<Organization | null> {
     const organization = this.items.find((organization) => organization.id === id);
 
     if (!organization) {
