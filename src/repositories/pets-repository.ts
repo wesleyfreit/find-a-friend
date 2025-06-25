@@ -1,5 +1,6 @@
 import {
   Media,
+  Organization,
   PetAge,
   PetAmbient,
   PetEnergy,
@@ -25,6 +26,7 @@ export interface FilteredPet {
 }
 
 export interface FullPet extends Pet {
+  organization: Organization;
   requirements?: Requirement[];
   medias?: Media[];
 }

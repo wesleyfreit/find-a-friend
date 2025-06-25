@@ -29,6 +29,20 @@ describe('Get Pet Details Use Case', () => {
   it('should be able to get the pet details', async () => {
     const petId = faker.string.uuid();
 
+    await organizationsRepository.create({
+      id: 'org-1',
+      principal: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      phone: faker.phone.number(),
+      city: 'Cajazeiras',
+      state: 'PB',
+      address: faker.location.streetAddress(),
+      cep: '58900-000',
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    });
+
     await petsRepository.create({
       id: petId,
       name: 'Bobby',
@@ -36,7 +50,7 @@ describe('Get Pet Details Use Case', () => {
       age: 'PUPPY',
       ambient: 'INDOOR',
       energy: 'HIGH',
-      orgId: faker.string.uuid(),
+      orgId: 'org-1',
       size: 'SMALL',
       independency: 'LOW',
     });
@@ -48,6 +62,7 @@ describe('Get Pet Details Use Case', () => {
     expect(pet.id).toEqual(petId);
     expect(pet.name).toEqual('Bobby');
     expect(pet.energy).toEqual('HIGH');
+    expect(pet.organization.cep).toEqual('58900-000');
   });
 
   it('should not be able to get pet details with wrong id', async () => {

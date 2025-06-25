@@ -36,13 +36,17 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async findById(id: string): Promise<FullPet | null> {
     const pet = this.items.find((pet) => pet.id === id);
+    const organization = this.organizationsRepository.items.find(
+      (organization) => organization.id === pet?.orgId,
+    );
 
-    if (!pet) {
+    if (!pet || !organization) {
       return null;
     }
 
     return {
       ...pet,
+      organization,
       requirements: this.requirementsRepository.items.filter(
         (requirement) => requirement.petId === pet.id,
       ),
