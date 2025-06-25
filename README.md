@@ -3,9 +3,9 @@
 ### 🛠️ Functional Requirements
 
 - ✅ It must be possible to register a pet
-- ✅ It must be possible to list all of the pets available for adoption
+- ✅ It must be possible to list all of the pets available for adoption in a city
 - ✅ It must be possible to filter pets by their characteristics
-- ✅ It must be possible to obtain details of a pet for adoption
+- z It must be possible to obtain details of a pet for adoption
 - ✅ It must be possible to register as an NGO (ONG)
 - ✅ It must be possible to authenticate as an NGO
 

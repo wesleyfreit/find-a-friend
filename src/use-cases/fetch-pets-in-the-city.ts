@@ -1,5 +1,4 @@
-import { type Pet } from 'prisma/client';
-import { PetParams, PetsRepository } from '../repositories/pets-repository';
+import { FilteredPet, PetParams, PetsRepository } from '../repositories/pets-repository';
 
 interface FetchPetsInTheCityUseCaseRequest {
   city: string;
@@ -8,7 +7,7 @@ interface FetchPetsInTheCityUseCaseRequest {
 }
 
 interface FetchPetsInTheCityUseCaseResponse {
-  pets: Pet[];
+  pets: FilteredPet[];
 }
 
 export class FetchPetsInTheCityUseCase {

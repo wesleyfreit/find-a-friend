@@ -1,18 +1,24 @@
+import { InMemoryMediasRepository } from '@/repositories/in-memory/in-memory-medias-repository';
+import { InMemoryRequirementsRepository } from '@/repositories/in-memory/in-memory-requirements-repository';
 import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryPetsRepository } from '../repositories/in-memory/in-memory-pets-repository';
 import { FetchPetsInTheCityUseCase } from './fetch-pets-in-the-city';
 
 let petsRepository: InMemoryPetsRepository;
+let mediasRepository: InMemoryMediasRepository;
+let requirementsRepository: InMemoryRequirementsRepository;
 let sut: FetchPetsInTheCityUseCase;
 
-describe('Get Pet Profile Use Case', () => {
+describe('Fetch Pets In The City Use Case', () => {
   beforeEach(async () => {
-    petsRepository = new InMemoryPetsRepository();
+    mediasRepository = new InMemoryMediasRepository();
+    requirementsRepository = new InMemoryRequirementsRepository();
+    petsRepository = new InMemoryPetsRepository(requirementsRepository, mediasRepository);
     sut = new FetchPetsInTheCityUseCase(petsRepository);
 
     await petsRepository.create({
-      name: faker.person.firstName(),
+      name: 'Bobby',
       about: faker.lorem.paragraph(),
       age: 'PUPPY',
       ambient: 'INDOOR',
@@ -25,7 +31,7 @@ describe('Get Pet Profile Use Case', () => {
     });
 
     await petsRepository.create({
-      name: faker.person.firstName(),
+      name: 'Max',
       about: faker.lorem.paragraph(),
       age: 'PUPPY',
       ambient: 'BOTH',
@@ -38,7 +44,7 @@ describe('Get Pet Profile Use Case', () => {
     });
 
     await petsRepository.create({
-      name: faker.person.firstName(),
+      name: 'Charlie',
       about: faker.lorem.paragraph(),
       age: 'YOUNG',
       ambient: 'BOTH',
@@ -51,7 +57,7 @@ describe('Get Pet Profile Use Case', () => {
     });
 
     await petsRepository.create({
-      name: faker.person.firstName(),
+      name: 'Bella',
       about: faker.lorem.paragraph(),
       age: 'SENIOR',
       ambient: 'BOTH',
@@ -75,8 +81,13 @@ describe('Get Pet Profile Use Case', () => {
     expect(pets).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          city: 'Cajazeiras',
-          uf: 'PB',
+          name: 'Bobby',
+        }),
+        expect.objectContaining({
+          name: 'Max',
+        }),
+        expect.objectContaining({
+          name: 'Charlie',
         }),
       ]),
     );
@@ -97,10 +108,10 @@ describe('Get Pet Profile Use Case', () => {
     expect(pets).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          city: 'Cajazeiras',
-          uf: 'PB',
-          age: 'PUPPY',
-          energy: 'HIGH',
+          name: 'Bobby',
+        }),
+        expect.objectContaining({
+          name: 'Max',
         }),
       ]),
     );
