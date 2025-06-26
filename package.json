@@ -9,7 +9,9 @@
     "build": "tsup src --out-dir build",
     "lint": "eslint src --fix",
     "check-types": "tsc --noEmit",
-    "test": "vitest run --dir src/use-cases"
+    "test": "vitest run --project unit",
+    "pretest:e2e": "pnpm link ./prisma/vitest-environment-prisma",
+    "test:e2e": "vitest run --project e2e"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
