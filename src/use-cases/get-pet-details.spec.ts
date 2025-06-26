@@ -62,7 +62,7 @@ describe('Get Pet Details Use Case', () => {
     expect(pet.id).toEqual(petId);
     expect(pet.name).toEqual('Bobby');
     expect(pet.energy).toEqual('HIGH');
-    expect(pet.organization.cep).toEqual('58900-000');
+    expect(pet.org.cep).toEqual('58900-000');
   });
 
   it('should not be able to get pet details with wrong id', async () => {

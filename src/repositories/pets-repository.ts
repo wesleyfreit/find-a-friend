@@ -26,7 +26,7 @@ export interface FilteredPet {
 }
 
 export interface FullPet extends Pet {
-  organization: Organization;
+  org: Organization;
   requirements?: Requirement[];
   medias?: Media[];
 }
