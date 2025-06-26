@@ -1,4 +1,4 @@
-import { FullPet, PetsRepository } from '../repositories/pets-repository';
+import { FullPet, PetsRepository } from '@/repositories/pets-repository';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 interface GetPetDetailsUseCaseRequest {

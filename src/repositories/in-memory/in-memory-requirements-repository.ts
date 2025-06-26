@@ -5,7 +5,7 @@ import { RequirementsRepository } from '../requirements-repository';
 export class InMemoryRequirementsRepository implements RequirementsRepository {
   public items: Requirement[] = [];
 
-  async createMany(data: string[], petId: string): Promise<Requirement[]> {
+  async createMany(data: string[], petId: string): Promise<void> {
     data.map((name) => {
       const requirement: Requirement = {
         id: randomUUID(),
@@ -16,7 +16,5 @@ export class InMemoryRequirementsRepository implements RequirementsRepository {
 
       this.items.push(requirement);
     });
-
-    return this.items;
   }
 }

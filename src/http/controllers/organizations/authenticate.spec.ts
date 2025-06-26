@@ -11,7 +11,7 @@ describe('Authenticate Controller (e2e)', () => {
     await app.close();
   });
 
-  it('should be able to authenticate an user', async () => {
+  it('should be able to authenticate an organization', async () => {
     const email = faker.internet.email();
     const password = faker.internet.password();
 

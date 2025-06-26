@@ -1,5 +1,5 @@
 import { MediasRepository } from '@/repositories/medias-repository';
-
+import { PetsRepository } from '@/repositories/pets-repository';
 import { RequirementsRepository } from '@/repositories/requirements-repository';
 import {
   PetAge,
@@ -9,7 +9,6 @@ import {
   PetSize,
   type Pet,
 } from 'prisma/client';
-import { PetsRepository } from '../repositories/pets-repository';
 
 interface CreatePetUseCaseRequest {
   name: string;

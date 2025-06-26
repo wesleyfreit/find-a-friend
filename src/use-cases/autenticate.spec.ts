@@ -1,7 +1,6 @@
+import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository';
 import { faker } from '@faker-js/faker';
 import { hash } from 'bcryptjs';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemoryOrganizationsRepository } from '../repositories/in-memory/in-memory-organizations-repository';
 import { AuthenticateUseCase } from './authenticate';
 import { InvalidCredentialsError } from './errors/invalid-credentials-error';
 

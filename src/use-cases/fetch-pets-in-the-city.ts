@@ -1,4 +1,4 @@
-import { FilteredPet, PetParams, PetsRepository } from '../repositories/pets-repository';
+import { FilteredPet, PetParams, PetsRepository } from '@/repositories/pets-repository';
 
 interface FetchPetsInTheCityUseCaseRequest {
   city: string;

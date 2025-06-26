@@ -1,9 +1,8 @@
 import { InMemoryMediasRepository } from '@/repositories/in-memory/in-memory-medias-repository';
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository';
+import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository';
 import { InMemoryRequirementsRepository } from '@/repositories/in-memory/in-memory-requirements-repository';
 import { faker } from '@faker-js/faker';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemoryPetsRepository } from '../repositories/in-memory/in-memory-pets-repository';
 import { FetchPetsInTheCityUseCase } from './fetch-pets-in-the-city';
 
 let petsRepository: InMemoryPetsRepository;

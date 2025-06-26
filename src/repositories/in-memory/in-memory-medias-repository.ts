@@ -5,7 +5,7 @@ import { MediasRepository } from '../medias-repository';
 export class InMemoryMediasRepository implements MediasRepository {
   public items: Media[] = [];
 
-  async createMany(data: string[], petId: string): Promise<Media[]> {
+  async createMany(data: string[], petId: string): Promise<void> {
     data.map((path) => {
       const media: Media = {
         id: randomUUID(),
@@ -16,7 +16,5 @@ export class InMemoryMediasRepository implements MediasRepository {
 
       this.items.push(media);
     });
-
-    return this.items;
   }
 }

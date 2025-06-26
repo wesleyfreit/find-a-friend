@@ -1,7 +1,6 @@
+import { InMemoryOrganizationsRepository } from '@/repositories/in-memory/in-memory-organizations-repository';
 import { faker } from '@faker-js/faker';
 import { compare } from 'bcryptjs';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemoryOrganizationsRepository } from '../repositories/in-memory/in-memory-organizations-repository';
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error';
 import { RegisterOrganizationUseCase } from './register-organization';
 

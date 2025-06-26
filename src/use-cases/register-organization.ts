@@ -1,6 +1,6 @@
+import { OrganizationsRepository } from '@/repositories/organizations-repository';
 import bcrypt from 'bcryptjs';
 import { type Organization } from 'prisma/client';
-import { OrganizationsRepository } from '../repositories/organizations-repository';
 import { OrganizationAlreadyExistsError } from './errors/organization-already-exists-error';
 
 interface RegisterOrganizationUseCaseRequest {

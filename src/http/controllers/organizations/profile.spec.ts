@@ -12,7 +12,7 @@ describe('Profile Controller (e2e)', () => {
     await app.close();
   });
 
-  it('should be able to get the user profile', async () => {
+  it('should be able to get the organization profile', async () => {
     const { token, organization } = await registerAndAuthenticateOrg(app);
 
     const response = await request(app.server)
