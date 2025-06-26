@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { Optional } from '@/types/optional';
 import { Organization, Prisma } from 'prisma/client';
 import { OrganizationsRepository } from '../organizations-repository';
 
@@ -23,11 +24,12 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
 
     return organization;
   }
-  async findById(id: string): Promise<Organization | null> {
+  async findById(id: string): Promise<Optional<Organization, 'password'> | null> {
     const organization = await prisma.organization.findUnique({
       where: {
         id,
       },
+      omit: { password: true },
     });
 
     return organization;

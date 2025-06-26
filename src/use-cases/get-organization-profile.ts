@@ -1,3 +1,4 @@
+import { Optional } from '@/types/optional';
 import { type Organization } from 'prisma/client';
 import { OrganizationsRepository } from '../repositories/organizations-repository';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
@@ -7,7 +8,7 @@ interface GetOrganizationProfileUseCaseRequest {
 }
 
 interface GetOrganizationProfileUseCaseResponse {
-  organization: Organization;
+  organization: Optional<Organization, 'password'>;
 }
 
 export class GetOrganizationProfileUseCase {
