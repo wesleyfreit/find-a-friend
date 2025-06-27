@@ -34,7 +34,7 @@ describe('Create Pet Use Case', () => {
       name: faker.person.firstName(),
       orgId: faker.string.uuid(),
       size: 'MEDIUM',
-      medias: ['https://example.com/media1.jpg', 'https://example.com/media2.jpg'],
+      medias: ['media1.jpg', 'media2.jpg'],
       requirements: ['food', 'water'],
     });
 

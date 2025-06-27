@@ -28,7 +28,7 @@ describe('Create Controller (e2e)', () => {
         size: 'SMALL',
         independency: 'LOW',
         requirements: ['vaccination', 'neutering'],
-        medias: ['https://example.com/media1.jpg', 'https://example.com/media2.jpg'],
+        medias: ['media1.jpg', 'media2.jpg'],
         orgId: organization.id,
       });
 

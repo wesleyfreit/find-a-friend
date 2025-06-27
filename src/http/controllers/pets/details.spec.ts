@@ -30,10 +30,7 @@ describe('Details Controller (e2e)', () => {
           create: [{ name: 'vaccination' }, { name: 'neutering' }],
         },
         medias: {
-          create: [
-            { path: 'https://example.com/media1.jpg' },
-            { path: 'https://example.com/media2.jpg' },
-          ],
+          create: [{ path: 'media1.jpg' }, { path: 'media2.jpg' }],
         },
       },
     });
