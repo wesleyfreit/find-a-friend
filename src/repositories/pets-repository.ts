@@ -1,3 +1,4 @@
+import { Optional } from '@/types/optional';
 import {
   Media,
   Organization,
@@ -26,7 +27,7 @@ export interface FilteredPet {
 }
 
 export interface FullPet extends Pet {
-  org: Organization;
+  org: Optional<Organization, 'password'>;
   requirements?: Requirement[];
   medias?: Media[];
 }

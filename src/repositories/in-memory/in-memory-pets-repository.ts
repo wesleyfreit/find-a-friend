@@ -46,7 +46,7 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return {
       ...pet,
-      org,
+      org: { ...org, password: undefined },
       requirements: this.requirementsRepository.items.filter(
         (requirement) => requirement.petId === pet.id,
       ),

@@ -1,3 +1,4 @@
+import { Optional } from '@/types/optional';
 import { randomUUID } from 'node:crypto';
 import { Prisma, type Organization } from 'prisma/client';
 import { OrganizationsRepository } from '../organizations-repository';
@@ -40,13 +41,13 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
     return organization;
   }
 
-  async findById(id: string): Promise<Organization | null> {
+  async findById(id: string): Promise<Optional<Organization, 'password'> | null> {
     const organization = this.items.find((organization) => organization.id === id);
 
     if (!organization) {
       return null;
     }
 
-    return organization;
+    return { ...organization, password: undefined };
   }
 }
