@@ -14,7 +14,10 @@ describe('Details Controller (e2e)', () => {
   });
 
   it('should be able to get all of the pet details', async () => {
-    const { token, organization } = await registerAndAuthenticateOrg(app);
+    const { token, organization } = await registerAndAuthenticateOrg(app, {
+      principal: 'John Doe',
+      phone: '+55 83 99999-9999',
+    });
 
     const pet = await prisma.pet.create({
       data: {
@@ -26,17 +29,11 @@ describe('Details Controller (e2e)', () => {
         size: 'SMALL',
         independency: 'LOW',
         orgId: organization.id,
-        requirements: {
-          create: [{ name: 'vaccination' }, { name: 'neutering' }],
-        },
-        medias: {
-          create: [{ path: 'media1.jpg' }, { path: 'media2.jpg' }],
-        },
       },
     });
 
     const response = await request(app.server)
-      .get(`/pets/${pet.id}`)
+      .get(`/pets/adoption/${pet.id}`)
       .set('Authorization', `Bearer ${token}`)
       .send();
 
@@ -44,24 +41,8 @@ describe('Details Controller (e2e)', () => {
 
     expect(response.body).toEqual(
       expect.objectContaining({
-        pet: expect.objectContaining({
-          id: pet.id,
-          name: 'Dog',
-          about: 'A friendly dog',
-          age: 'YOUNG',
-          energy: 'HIGH',
-          ambient: 'OUTDOOR',
-          size: 'SMALL',
-          independency: 'LOW',
-          requirements: expect.arrayContaining([
-            expect.objectContaining({ name: 'vaccination' }),
-            expect.objectContaining({ name: 'neutering' }),
-          ]),
-          medias: expect.arrayContaining([
-            expect.objectContaining({ path: 'media1.jpg' }),
-            expect.objectContaining({ path: 'media2.jpg' }),
-          ]),
-        }),
+        organizationPrincipal: expect.stringContaining('John Doe'),
+        whatsappNumber: expect.stringContaining('+55 83 99999-9999'),
       }),
     );
   });

@@ -13,7 +13,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     size: z.nativeEnum(PetSize),
     independency: z.nativeEnum(PetIndependency),
     orgId: z.string().uuid(),
-    medias: z.array(z.string().url()).optional(),
+    medias: z.array(z.string()).optional(),
     requirements: z.array(z.string()).optional(),
   });
 

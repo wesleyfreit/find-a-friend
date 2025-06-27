@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { PrismaClient } from 'prisma/client';
-import { Environment } from 'vitest';
+import { Environment } from 'vitest/environments';
 
 const generateDatabaseURL = (schema: string) => {
   if (!process.env.DATABASE_URL) {

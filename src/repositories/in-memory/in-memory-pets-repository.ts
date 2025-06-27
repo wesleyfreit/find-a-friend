@@ -1,5 +1,6 @@
+import { Optional } from '@/types/optional';
 import { randomUUID } from 'node:crypto';
-import { Prisma, type Pet } from 'prisma/client';
+import { Organization, Prisma, type Pet } from 'prisma/client';
 import { FilteredPet, FullPet, PetParams, PetsRepository } from '../pets-repository';
 import { InMemoryMediasRepository } from './in-memory-medias-repository';
 import { InMemoryOrganizationsRepository } from './in-memory-organizations-repository';
@@ -52,6 +53,23 @@ export class InMemoryPetsRepository implements PetsRepository {
       ),
       medias: this.mediasRepository.items.filter((media) => media.petId === pet.id),
     };
+  }
+
+  async findPetOrg(petId: string): Promise<Optional<Organization, 'password'> | null> {
+    const pet = this.items.find((pet) => pet.id === petId);
+    if (!pet) {
+      return null;
+    }
+
+    const org = this.organizationsRepository.items.find(
+      (organization) => organization.id === pet.orgId,
+    );
+
+    if (!org) {
+      return null;
+    }
+
+    return { ...org, password: undefined };
   }
 
   async findManyByCityAndUF(

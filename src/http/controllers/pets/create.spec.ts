@@ -44,9 +44,6 @@ describe('Create Controller (e2e)', () => {
         ambient: 'OUTDOOR',
         size: 'SMALL',
         independency: 'LOW',
-        requirements: {
-          some: { OR: [{ name: 'vaccination' }, { name: 'neutering' }] },
-        },
       },
     });
 

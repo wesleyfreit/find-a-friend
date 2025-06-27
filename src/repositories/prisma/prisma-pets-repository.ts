@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { Pet, Prisma } from 'prisma/client';
+import { Optional } from '@/types/optional';
+import { Organization, Pet, Prisma } from 'prisma/client';
 import { FilteredPet, FullPet, PetParams, PetsRepository } from '../pets-repository';
 
 export class PrismaPetsRepository implements PetsRepository {
@@ -24,6 +25,19 @@ export class PrismaPetsRepository implements PetsRepository {
     });
 
     return pet;
+  }
+
+  async findPetOrg(petId: string): Promise<Optional<Organization, 'password'> | null> {
+    const pet = await prisma.pet.findUnique({
+      where: { id: petId },
+      select: {
+        org: {
+          omit: { password: true },
+        },
+      },
+    });
+
+    return pet?.org || null;
   }
 
   async findManyByCityAndUF(

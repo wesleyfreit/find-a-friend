@@ -35,6 +35,7 @@ export interface FullPet extends Pet {
 export interface PetsRepository {
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>;
   findById(id: string): Promise<FullPet | null>;
+  findPetOrg(petId: string): Promise<Optional<Organization, 'password'> | null>;
   findManyByCityAndUF(
     city: string,
     uf: string,
