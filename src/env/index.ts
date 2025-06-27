@@ -4,6 +4,11 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'production', 'test']).default('dev'),
   PORT: z.coerce.number().default(3333),
   JWT_SECRET: z.string(),
+  BUCKET_ENDPOINT: z.string(),
+  BUCKET_NAME: z.string(),
+  BUCKET_REGION: z.string().default('us-east-1'),
+  BUCKET_ACCESS_KEY_ID: z.string(),
+  BUCKET_SECRET_ACCESS_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
